@@ -33,3 +33,14 @@ EXPOSE 8080
 
 CMD ["catalina.sh", "run"]
   
+Compose yml:
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
