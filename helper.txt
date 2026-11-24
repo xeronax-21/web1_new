@@ -33,7 +33,7 @@ EXPOSE 8080
 
 CMD ["catalina.sh", "run"]
   
-Compose yml:
+Compose yml
 services:
   web:
     image: nginx:latest
@@ -44,3 +44,18 @@ services:
     image: redis:latest
     ports:
       - "6379:6379"
+kubernetes in powershell:
+minikube start --driver=docker
+kubectl create deployment nginx --image=nginx
+kubectl get pods
+kubectl expose deployment nginx --type=NodePort --port=80
+kubectl get services
+minikube dashboard
+(Open a second PowerShell window:
+minikube service nginx)
+NAGIOS
+docker pull manios/nagios:latest
+docker run -d --name nagios -p 8081:80 manios/nagios:latest
+http://localhost:8081
+Username: nagiosadmin
+Password: nagios
