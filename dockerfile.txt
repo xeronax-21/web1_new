@@ -1,0 +1,35 @@
+ubuntu :
+FROM ubuntu:latest
+RUN apt-get update
+CMD ["echo", "Hello! My first Docker image"]
+index.html :
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Docker Web App</title>
+</head>
+<body>
+    <h1>Welcome to NGINX!</h1>
+    <p>My first Docker web application.</p>
+</body>
+</html>
+nginx :
+  FROM nginx:latest
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+aws :
+FROM maven:3.9-eclipse-temurin-17 AS build
+
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
+FROM tomcat:9-jdk17
+
+COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
+
+EXPOSE 8080
+
+CMD ["catalina.sh", "run"]
+  
