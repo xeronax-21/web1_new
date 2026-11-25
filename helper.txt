@@ -32,7 +32,43 @@ COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
 
 CMD ["catalina.sh", "run"]
-  
+
+kubernetes in powershell:
+minikube start --driver=docker
+kubectl create deployment nginx --image=nginx
+kubectl get pods
+kubectl expose deployment nginx --type=NodePort --port=80
+kubectl get services
+minikube dashboard
+(Open a second PowerShell window:
+minikube service nginx)
+
+NAGIOS
+docker pull manios/nagios:latest
+docker run -d --name nagios -p 8081:80 manios/nagios:latest
+http://localhost:8081
+Username: nagiosadmin
+Password: nagios
+
+Docker compose
+cd C:\Users\DELL
+mkdir compose-demo
+cd compose-demo
+
+notepad compose.yaml
+
+docker compose config
+docker compose pull
+docker compose up -d
+docker compose ps
+
+docker exec -it redis-db redis-cli ping
+
+docker compose logs
+docker compose stop
+docker compose start
+docker compose restart
+docker compose down
 Compose yml
 services:
   web:
@@ -44,18 +80,3 @@ services:
     image: redis:latest
     ports:
       - "6379:6379"
-kubernetes in powershell:
-minikube start --driver=docker
-kubectl create deployment nginx --image=nginx
-kubectl get pods
-kubectl expose deployment nginx --type=NodePort --port=80
-kubectl get services
-minikube dashboard
-(Open a second PowerShell window:
-minikube service nginx)
-NAGIOS
-docker pull manios/nagios:latest
-docker run -d --name nagios -p 8081:80 manios/nagios:latest
-http://localhost:8081
-Username: nagiosadmin
-Password: nagios
